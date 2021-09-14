@@ -85,3 +85,13 @@ function generateHtmlCodeForUlBookList() {
   getRemoveButtons = document.querySelectorAll('.removeBtn');
   addRemoveListeners();
 }
+
+/****************************************************
+***************** Main/Initializing ***************** 
+*****************************************************/
+function initializeCollection() {
+  collectionOfBooks = [...JSON.parse(localStorage.getItem('BookData'))];
+  generateHtmlCodeForUlBookList();
+}
+
+  initializeCollection();
