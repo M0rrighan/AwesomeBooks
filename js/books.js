@@ -1,5 +1,4 @@
 const booksList = document.getElementById('booksList');
-const addBookForm = document.getElementById('addBookForm');
 const title = document.querySelector('#title');
 const author = document.querySelector('#author');
 const addBtn = document.querySelector('#addBtn');
@@ -11,9 +10,9 @@ const book = {
   author: '',
 };
 
-/*********************************************************
+/** *******************************************************
  *** bookObject and localStorage manipulation Functions ***
- **********************************************************/
+ ********************************************************* */
 function addBook() {
   let id = 0;
   if (title.value.length < 1 || author.value < 1) {
@@ -44,33 +43,17 @@ function updateLocalStorage() {
   return collectionOfBooks;
 }
 
-addBtn.addEventListener('click', (e) => {
-  e.preventDefault();
-  addBook();
-  generateHtmlCodeForUlBookList();
-});
-
-function addRemoveListeners() {
-  getRemoveButtons.forEach((removeBtn) => {
-    removeBtn.addEventListener('click', (e) => {
-      e.preventDefault();
-      removeBook(parseInt(removeBtn.id));      
-      generateHtmlCodeForUlBookList();
-    });
-  });
-}
-
-/*****************************************************
-*** DOM manipulation Functions *** 
-******************************************************/
+/** ***************************************************
+*** DOM manipulation Functions ***
+***************************************************** */
 function generateHtmlCodeForUlBookList() {
   const collectionToShow = updateLocalStorage();
-  booksList.innerHTML = ``;
+  booksList.innerHTML = '';
 
   if (collectionToShow) {
     collectionToShow.forEach((item) => {
       const [id, book] = item;
-      const {title, author} = book;
+      const { title, author } = book;
       const bookLi = document.createElement('li');
       bookLi.id = id;
       bookLi.innerHTML = `
@@ -83,15 +66,29 @@ function generateHtmlCodeForUlBookList() {
   }
 
   getRemoveButtons = document.querySelectorAll('.removeBtn');
-  addRemoveListeners();
+
+  // add event listeners to remove buttons
+  getRemoveButtons.forEach((removeBtn) => {
+    removeBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      removeBook(parseInt(removeBtn.id, 10));
+      generateHtmlCodeForUlBookList();
+    });
+  });
 }
 
-/****************************************************
-***************** Main/Initializing ***************** 
-*****************************************************/
+addBtn.addEventListener('click', (e) => {
+  e.preventDefault();
+  addBook();
+  generateHtmlCodeForUlBookList();
+});
+
+/** **************************************************
+***************** Main/Initializing *****************
+**************************************************** */
 function initializeCollection() {
   collectionOfBooks = [...JSON.parse(localStorage.getItem('BookData'))];
   generateHtmlCodeForUlBookList();
 }
 
-  initializeCollection();
+initializeCollection();
