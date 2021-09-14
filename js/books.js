@@ -59,3 +59,29 @@ function addRemoveListeners() {
     });
   });
 }
+
+/*****************************************************
+*** DOM manipulation Functions *** 
+******************************************************/
+function generateHtmlCodeForUlBookList() {
+  const collectionToShow = updateLocalStorage();
+  booksList.innerHTML = ``;
+
+  if (collectionToShow) {
+    collectionToShow.forEach((item) => {
+      const [id, book] = item;
+      const {title, author} = book;
+      const bookLi = document.createElement('li');
+      bookLi.id = id;
+      bookLi.innerHTML = `
+        <div class="title">${title}</div>
+        <div class="author">${author}</div>
+        <button id="${id}" class="removeBtn" type="submit">Remove</button>
+      `;
+      booksList.appendChild(bookLi);
+    });
+  }
+
+  getRemoveButtons = document.querySelectorAll('.removeBtn');
+  addRemoveListeners();
+}
