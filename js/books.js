@@ -31,3 +31,8 @@ function addBook() {
   collectionOfBooks.push([id, currentBook]);
 }
 
+function removeBook(id) {
+  const newCollection = collectionOfBooks.filter(book => book[0] !== id);
+  collectionOfBooks = newCollection;
+}
+
