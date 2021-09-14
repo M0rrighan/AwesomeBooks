@@ -49,3 +49,13 @@ addBtn.addEventListener('click', (e) => {
   addBook();
   generateHtmlCodeForUlBookList();
 });
+
+function addRemoveListeners() {
+  getRemoveButtons.forEach((removeBtn) => {
+    removeBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      removeBook(parseInt(removeBtn.id));      
+      generateHtmlCodeForUlBookList();
+    });
+  });
+}
