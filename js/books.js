@@ -36,3 +36,11 @@ function removeBook(id) {
   collectionOfBooks = newCollection;
 }
 
+function updateLocalStorage() {
+  const arrayOfBooksToString = JSON.stringify(collectionOfBooks);
+
+  if (localStorage.getItem('BookData') !== arrayOfBooksToString) {
+    localStorage.setItem('BookData', arrayOfBooksToString);
+  }
+  return collectionOfBooks;
+}
