@@ -6,25 +6,24 @@ const addBtn = document.querySelector('#addBtn');
 let getRemoveButtons = [];
 let collectionOfBooks = [];
 
-
 const book = {
   title: '',
   author: '',
 };
 
-/********************************************************* 
-*** bookObject and localStorage manipulation Functions *** 
-**********************************************************/
+/*********************************************************
+ *** bookObject and localStorage manipulation Functions ***
+ **********************************************************/
 function addBook() {
   let id = 0;
   if (title.value.length < 1 || author.value < 1) {
     return;
   }
   if (collectionOfBooks.length > 0) {
-  // collectionOfBooks [[id, BookObj] [id, BookObj] ...] 
-  // checks the collectionOfBooks last array, first element: id and adds 1
-  id = (collectionOfBooks[collectionOfBooks.length -1][0]) + 1;
-  } 
+    // collectionOfBooks [[id, BookObj] [id, BookObj] ...]
+    // checks the collectionOfBooks last array, first element: id and adds 1
+    id = collectionOfBooks[collectionOfBooks.length - 1][0] + 1;
+  }
   const currentBook = Object.create(book);
   currentBook.title = title.value;
   currentBook.author = author.value;
@@ -32,7 +31,7 @@ function addBook() {
 }
 
 function removeBook(id) {
-  const newCollection = collectionOfBooks.filter(book => book[0] !== id);
+  const newCollection = collectionOfBooks.filter((book) => book[0] !== id);
   collectionOfBooks = newCollection;
 }
 
@@ -44,3 +43,9 @@ function updateLocalStorage() {
   }
   return collectionOfBooks;
 }
+
+addBtn.addEventListener('click', (e) => {
+  e.preventDefault();
+  addBook();
+  generateHtmlCodeForUlBookList();
+});
